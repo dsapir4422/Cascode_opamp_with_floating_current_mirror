@@ -1,9 +1,7 @@
 # Cascode_opamp_with_floating_current_mirror
-In This project I will show the design of a Cascode opamp amplifier with floating mirror as bias circuit in 65[nm] technology.
+In this project I will show the design of a Cascode opamp amplifier with floating mirror as bias circuit in 65[nm] technology.<br>
 A floating current mirror is a current source which is not depends on supply. it is named "floating" because it operates without being referenced to a fixed voltage
 in the circuit while still providing the desired current mirroring functionality.
-
-In this design the "floating voltage" is NMOS threshold voltage. 
 
 ## Design specification
 * VDD = 1.8[V]
@@ -31,7 +29,7 @@ Let's explain the design from bottom (NMOS) to top (PMOS), starting with the flo
 <img width="550" alt="image" align=left src="https://github.com/user-attachments/assets/fd32952f-07f1-4ce8-bd15-0ded17188d0f">
 
 <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-* M0,1 are used as gm stage an therefore biased with low L for higher gm -> W/L = 10/0.1
+* M0,1 are used as gm stage, therefore biased with low L for higher gm -> W/L = 10/0.1
 * M3,4 are cascode gm stage for higher rout, W/L = 50/1
 * M2 is the tail current which is biased x2 from the floating current mirror such that $I_{bias} = 30[uA]$ for higher gain -> W/L = 20/1
 * M20 (together with M18) are biased as PMOS and NMOS biasing circuit (20/1, 10/1) to copy current for amplifier stage using M2
@@ -48,3 +46,15 @@ For DC, STB and transient simulations we used the following test bench -
 DC gain is like a regular cascode ("Telescopic") amplifier - $A_v = gm_1*(gm_4 * ro_4 * ro_1)||(gm_8 * ro_8 * ro_7)$, and we have 1 dominant pole (1 stage) therefore PM drops by only 90[deg] - 
 ![image](https://github.com/user-attachments/assets/90401325-34ce-4c2b-94d7-bd1f20abc97f)
 
+So the circuit is quite stable, and GBW ~ 7[MHz]. we can also see it in transient response (left graph) - 
+![image](https://github.com/user-attachments/assets/368d7a0c-0ec5-4193-a70f-7d4a6a9bf6d1)
+
+on the right we can see Vout-Vin (offset voltage error) which is below 150[uV].
+
+**CMRR**
+<br>
+For CMRR we used the following test bench to calculate Acm and Adiff - 
+![image](https://github.com/user-attachments/assets/9f58f9d3-3502-4513-863a-aad24343e836)
+
+Extracted the CMRR as $CMRR = A_{OL}/A_{CM}$
+![image](https://github.com/user-attachments/assets/06ceb038-5438-43fb-b720-438616e97f77)
