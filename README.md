@@ -10,7 +10,7 @@ In this design the "floating voltage" is NMOS threshold voltage.
 * DC Gain ~ 60 dB
 * PM > 60 [deg]
 * GBW > 6[MHz]
-* C load = 5[pF]
+* C_{load} = 5[pF]
 
 ## Design explained
 The design consists of 2 circuits - amplifier circuit and biasing circuit, both design with PMOS and NMOS cascode structure. 
@@ -30,3 +30,12 @@ Let's explain the design from bottom (NMOS) to top (PMOS), starting with the flo
 * M11, M12, M9, M10 are PMOS cascode for forcing the current to be equal. they are sized x2 the NMOS cascode such that W/L = 20/1
 * M18, M19 is used to mirror current to the amplifier stage, see below
 <img width="550" alt="image" align=left src="https://github.com/user-attachments/assets/fd32952f-07f1-4ce8-bd15-0ded17188d0f">
+
+
+* M0,1 are used as gm stage an therefore biased with low L for higher gm -> W/L = 10/0.1
+* M3,4 are cascode gm stage for higher rout, W/L = 50/1
+* M2 is the tail current which is biased x2 from the floating current mirror such that $I_{bias} = 30[uA]$ for higher gain -> W/L = 20/1
+* M20 (together with M18) are biased as PMOS and NMOS biasing circuit (20/1, 10/1) to copy current for amplifier stage using M2
+* M21 is used to bias the gm stage cascode by providing Vgs to M3,M4 gates. it is sized as W/L=2/0.5. M19 provides bias current to M21 and therefore it can be a fraction of Itail (~0.01*Itail)
+<img width="700" alt="image" align=left src="https://github.com/user-attachments/assets/62fe5945-7b9e-441c-9046-1c8416fc1b1a">
+
